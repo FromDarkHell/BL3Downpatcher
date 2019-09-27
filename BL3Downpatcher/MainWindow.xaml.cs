@@ -67,7 +67,7 @@ namespace BL3Downpatcher
             game.setCurrentPatch(((string)patchBox.SelectedItem));
             updateVersionLabel();
             Mouse.OverrideCursor = null;
-            //await showMessage("", "Patched!");
+            showMessageDialog("", "Patched!");
         }
 
         #region File Path Management
@@ -132,11 +132,11 @@ namespace BL3Downpatcher
                     w.WriteLine(hostsEnabled);
                 }
                 flushDNSCache();
-                showMessage("Complete", "Hotfixes Disabled!");
+                showMessageDialog("Complete", "Hotfixes Disabled!");
             }
             catch (Exception ex)
             {
-                showMessage("Error!", "An error occurred! Try running in administrator mode. If this doesn't work, contact FromDarkHell!");
+                showMessageDialog("Error!", "An error occurred! Try running in administrator mode. If this doesn't work, contact FromDarkHell!");
                 Helpers.writeErrorToDisk("Borderlands3", ex);
             }
         }
@@ -228,7 +228,22 @@ namespace BL3Downpatcher
 
         #endregion
 
+        #region Top Panel Buttons
+        private void ClickHelpButton(object sender, System.Windows.RoutedEventArgs e)
+        {
+            showMessageDialog("Help", "By: FromDarkHell (Icon by BrokenNoah)");
+        }
 
+        private void ClickGithub(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/FromDarkHell/BL3Downpatcher");
+        }
+        #endregion
+
+        private async void showMessageDialog(string title, string message)
+        {
+            await this.ShowMessageAsync(title, message);
+        }
         private async Task<MessageDialogResult> showMessage(string title, string message, MessageDialogStyle style = MessageDialogStyle.Affirmative)
         {
             return await this.ShowMessageAsync(title, message, style);

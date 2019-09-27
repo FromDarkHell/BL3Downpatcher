@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BL3Downpatcher"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Borderlands 3 Downpatcher / Hotfixer" Height="170" Width="623" ResizeMode="NoResize">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="ClickGithub">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="GithubCircle" />
+                </StackPanel>
+            </Button>
+            <Button Click="ClickHelpButton">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="HelpCircle" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="455*"/>
@@ -23,10 +41,10 @@
         <Label Content="Current Patch: " HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Height="26" Width="88"/>
         <Label Name="VersionLabel" Content="N/A" HorizontalAlignment="Left" Margin="105,99,0,0" VerticalAlignment="Top" Width="140" Height="26"/>
 
-        <Button x:Name="Hotfixes_Enable" Click="EnableHotfixes" Content="Enable Hotfixes" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="120" Height="34" Grid.Column="1"/>
-        <Button x:Name="Hotfixes_Disable" Click="DisableHotfixes" Content="Disable Hotfixes" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="120" Height="34" Grid.Column="1"/>
-        <Label Name="HotfixState" Content="Unknown" Grid.Column="1" HorizontalAlignment="Left" Margin="74,99,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
-        <Label Content="Hotfixes: " Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Height="26" Width="59"/>
+        <Button x:Name="Hotfixes_Enable" Click="EnableHotfixes" Content="Enable Hotfixes" HorizontalAlignment="Left" Margin="20,2,0,0" VerticalAlignment="Top" Width="120" Height="34" Grid.Column="1"/>
+        <Button x:Name="Hotfixes_Disable" Click="DisableHotfixes" Content="Disable Hotfixes" HorizontalAlignment="Left" Margin="20,52,0,0" VerticalAlignment="Top" Width="120" Height="34" Grid.Column="1"/>
+        <Label Name="HotfixState" Content="Unknown" Grid.Column="1" HorizontalAlignment="Left" Margin="74,99,0,0" VerticalAlignment="Top" Width="78" Height="26" RenderTransformOrigin="0.59,0.423"/>
+        <Label Content="Hotfixes: " Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Height="26" Width="59" RenderTransformOrigin="0.424,-0.154"/>
         <Button x:Name="CreateDesktopShortcutButton" Click="CreateDesktopShortcut" Content="Create Shortcut" HorizontalAlignment="Left" Margin="250,91,0,0" VerticalAlignment="Top" Width="109" Height="34"/>
     </Grid>
 </Controls:MetroWindow>
