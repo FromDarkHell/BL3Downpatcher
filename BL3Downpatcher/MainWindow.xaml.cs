@@ -88,10 +88,25 @@ namespace BL3Downpatcher
 
         private void GamePathChanged(object sender, TextChangedEventArgs e)
         {
+            string lastCorrectDir = Properties.Settings.Default.gamePathDirectory;
             Properties.Settings.Default.gamePathDirectory = GamePath.Text;
             Properties.Settings.Default.Save();
-            game.setCurrentFilePath(GamePath.Text);
-            updateVersionLabel();
+            try { game.setCurrentFilePath(GamePath.Text); updateVersionLabel(); }
+            catch (Exception)
+            {
+                VersionLabel.Content = "Non-existant Path!";
+                Properties.Settings.Default.gamePathDirectory = lastCorrectDir;
+                Properties.Settings.Default.Save();
+                try
+                {
+                    game.setCurrentFilePath(GamePath.Text); updateVersionLabel();
+                }
+                catch (Exception)
+                {
+                    Properties.Settings.Default.gamePathDirectory = @"C:\";
+                    Properties.Settings.Default.Save();
+                }
+            }
         }
 
         #endregion
