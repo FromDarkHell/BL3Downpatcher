@@ -1,20 +1,20 @@
-﻿using System.IO;
-using System.Windows.Forms;
-using DownpatcherSharp;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Diagnostics;
-using System;
+﻿using System;
+using System.IO;
 using System.Linq;
-using MahApps.Metro.Controls.Dialogs;
-using System.Threading.Tasks;
 using System.Threading;
+using DownpatcherSharp;
 using System.Management;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using MahApps.Metro.Controls;
+using System.Diagnostics;
 using IWshRuntimeLibrary;
 using File = System.IO.File;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using MahApps.Metro.Controls;
+using System.Windows.Controls;
+using System.Text.RegularExpressions;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace BL3Downpatcher
 {
@@ -27,17 +27,19 @@ namespace BL3Downpatcher
             try
             {
                 string exePath = gameDir.FullName + @"\OakGame\Binaries\Win64\Borderlands3.exe";
-                FileInfo exeInfo = new FileInfo(exePath);
-                switch (exeInfo.Length)
+                string versionNumber = VersionHelper.GetProductVersion(exePath);
+                switch (versionNumber)
                 {
-                    case 625574032:
-                        return "1.0.0";
-                    case 650755728:
+                    case "OAK-PATCHDIESEL-21":
+                        return "1.0.2";
+                    case "OAK-PATCHDIESEL-11":
                         return "1.0.1";
+                    case "OAK-PADDIESEL1-39":
+                        return "1.0.0";
                 }
-                return "Unknown";
+                return versionNumber;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "Unknown";
             }
@@ -135,7 +137,7 @@ namespace BL3Downpatcher
             var linesToKeep = File.ReadAllLines(hostsPath).Where(l => l != hostsEnabled);
             File.WriteAllLines(hostsPath, linesToKeep);
             flushDNSCache();
-            showMessage("Complete", "Hotfixes Enabled!");
+            showMessageDialog("Complete", "Hotfixes Enabled!");
         }
 
         private void DisableHotfixes(object sender, System.Windows.RoutedEventArgs e)
@@ -152,7 +154,7 @@ namespace BL3Downpatcher
             catch (Exception ex)
             {
                 showMessageDialog("Error!", "An error occurred! Try running in administrator mode. If this doesn't work, contact FromDarkHell!");
-                Helpers.writeErrorToDisk("Borderlands3", ex);
+                MessageBox.Show(ex.StackTrace);
             }
         }
 
