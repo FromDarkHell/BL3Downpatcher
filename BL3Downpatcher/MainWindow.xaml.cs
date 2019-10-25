@@ -30,6 +30,8 @@ namespace BL3Downpatcher
                 string versionNumber = VersionHelper.GetProductVersion(exePath);
                 switch (versionNumber)
                 {
+                    case "OAK-PATCHDIESEL-45":
+                        return "1.1.0";
                     case "OAK-PATCHDIESEL-21":
                         return "1.0.2";
                     case "OAK-PATCHDIESEL-11":
@@ -54,12 +56,19 @@ namespace BL3Downpatcher
         Borderlands3 game;
         public MainWindow()
         {
-            game = new Borderlands3(Properties.Settings.Default.gamePathDirectory, "Borderlands3");
             InitializeComponent();
-            GamePath.Text = Properties.Settings.Default.gamePathDirectory;
-            foreach (string p in game.getPatches())
-                patchBox.Items.Add(p);
-            HotfixState.Content = checkHotfixState();
+            try
+            {
+                game = new Borderlands3(Properties.Settings.Default.gamePathDirectory, "Borderlands3");
+                GamePath.Text = Properties.Settings.Default.gamePathDirectory;
+                foreach (string p in game.getPatches())
+                    patchBox.Items.Add(p);
+                HotfixState.Content = checkHotfixState();
+            }
+            catch (Exception)
+            {
+                showMessageDialog("Exception!", "An error occured!");
+            }
         }
 
         #region Patcher Stuff
