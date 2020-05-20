@@ -30,6 +30,10 @@ namespace BL3Downpatcher
                 string versionNumber = VersionHelper.GetProductVersion(exePath);
                 switch (versionNumber)
                 {
+                    case "OAK-PATCHDIESEL-97":
+                        return "1.2.1";
+                    case "OAK-PATCHDIESEL-71":
+                        return "1.2.0";
                     case "OAK-PATCHDIESEL-45":
                         return "1.1.0";
                     case "OAK-PATCHDIESEL-21":
@@ -38,8 +42,9 @@ namespace BL3Downpatcher
                         return "1.0.1";
                     case "OAK-PADDIESEL1-39":
                         return "1.0.0";
+                    default:
+                        return "Unknown";
                 }
-                return versionNumber;
             }
             catch (Exception)
             {
@@ -78,7 +83,7 @@ namespace BL3Downpatcher
             game.setCurrentPatch(((string)patchBox.SelectedItem));
             updateVersionLabel();
             Mouse.OverrideCursor = null;
-            showMessageDialog("", "Patched!");
+            showMessageDialog("", "Patched! If you load a save created after this patch, items will be deleted");
         }
 
         #region File Path Management
